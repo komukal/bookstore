@@ -1,13 +1,31 @@
 package com.course.bookstore.domain;
 
-import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Book {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private String title;
 	private String author;
 	private int year;
 	private String isbn;
-	private BigDecimal price;
+	private double price;
+	
+	public Book() {	}
+
+	public Book(String title, String author, int year, String isbn, double price) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.year = year;
+		this.isbn = isbn;
+		this.price = price;
+	}
 
 	public String getTitle() {
 		return title;
@@ -41,11 +59,11 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
