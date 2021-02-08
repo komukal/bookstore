@@ -5,7 +5,8 @@
 <head>
 <title>Bookstore - List of Books</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
 
 </head>
 
@@ -30,12 +31,13 @@
 				<td th:text="${book.year}"></td>
 				<td th:text="${book.isbn}"></td>
 				<td th:text="${book.price}+ €"></td>
-				<td><a href="#" class="btn btn-danger">Delete</a></td>
+				<td><a class="btn btn-danger"
+					th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
 
 			</tr>
 		</tbody>
 	</table>
-	<a href="/add"class="btn btn-success">Add a book to the assortment</a>
+	<a href="/add" class="btn btn-success">Add a book to the assortment</a>
 
 </body>
 
