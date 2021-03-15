@@ -23,7 +23,8 @@ public class BookstoreApplication {
 	public CommandLineRunner demo(BookRepository brepository, CategoryRepository crepository,
 			UserRepository urepository) {
 		return (args) -> {
-
+			urepository.deleteAll();
+			crepository.deleteAll();
 			Category c1 = new Category("Education");
 			Category c2 = new Category("Autobiography");
 			Category c3 = new Category("Fiction");
@@ -42,7 +43,6 @@ public class BookstoreApplication {
 			brepository.save(book1);
 			brepository.save(book2);
 			brepository.save(book3);
-			urepository.deleteAll();
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
 			urepository.save(user1);
