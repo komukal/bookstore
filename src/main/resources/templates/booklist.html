@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <head>
@@ -9,47 +9,59 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="css/custom.css"
+	th:href="@{css/custom.css}" />
 
 </head>
 
 <body>
-
-	<h1>The Bookstore</h1>
-	<p>Our book assortment</p>
-	    <div sec:authorize="isAuthenticated()">
-      Currently logged in as: <b><span sec:authentication="name"></span></b></div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-	<table class="table table-striped">
-		<tbody>
-			<tr>
-				<th>Title</th>
-				<th>Author</th>
-				<th>Year</th>
-				<th>ISBN</th>
-				<th>Price</th>
-				<th>Category</th>
-
-			</tr>
-			<tr th:each="book : ${books}">
-				<td th:text="${book.title}"></td>
-				<td th:text="${book.author}"></td>
-				<td th:text="${book.year}"></td>
-				<td th:text="${book.isbn}"></td>
-				<td th:text="${book.price}+ €"></td>
-				<td th:text="${book.category.name}"></td>
+	<nav class="navbar navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand">The bookstore</a>
+			<form  th:action="@{/logout}" method="post" class="d-flex">
 				
-				<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success"
-					th:href="@{/edit/{id}(id=${book.id})}">Edit</a> <a
-					class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+				<button class="btn btn-outline-light" type="submit">Sign out</button>
+			</form>
+		</div>
+	</nav>
+	<div class="container">
+
+		<p>Book management system version -00.01</p>
+		<div sec:authorize="isAuthenticated()">
+			Currently logged in as: <b><span sec:authentication="name"></span></b>
+		</div>
+
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Year</th>
+					<th>ISBN</th>
+					<th>Price</th>
+					<th>Category</th>
+					<th></th>
+
+				</tr>
+				<tr th:each="book : ${books}">
+					<td th:text="${book.title}"></td>
+					<td th:text="${book.author}"></td>
+					<td th:text="${book.year}"></td>
+					<td th:text="${book.isbn}"></td>
+					<td th:text="${book.price}+ €"></td>
+					<td th:text="${book.category.name}"></td>
+
+					<td sec:authorize="hasAuthority('ADMIN')"><a
+						class="btn btn-success" th:href="@{/edit/{id}(id=${book.id})}">Edit</a>
+						<a class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
 
 
-			</tr>
-		</tbody>
-	</table>
-	<a href="/add" class="btn btn-success">Add a book to the assortment</a>
-
+				</tr>
+			</tbody>
+		</table>
+		<a href="/add" class="btn btn-success">Add a book to the
+			assortment</a>
+	</div>
 </body>
 
 </html>
