@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 
 <head>
 <title>Bookstore - List of Books</title>
@@ -14,7 +16,11 @@
 
 	<h1>The Bookstore</h1>
 	<p>Our book assortment</p>
-
+	    <div sec:authorize="isAuthenticated()">
+      Currently logged in as: <b><span sec:authentication="name"></span></b></div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 	<table class="table table-striped">
 		<tbody>
 			<tr>
@@ -34,7 +40,7 @@
 				<td th:text="${book.price}+ €"></td>
 				<td th:text="${book.category.name}"></td>
 				
-				<td><a class="btn btn-success"
+				<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-success"
 					th:href="@{/edit/{id}(id=${book.id})}">Edit</a> <a
 					class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
 
