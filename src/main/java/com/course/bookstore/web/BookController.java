@@ -1,5 +1,8 @@
 package com.course.bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.course.bookstore.domain.Book;
 import com.course.bookstore.domain.BookRepository;
 import com.course.bookstore.domain.CategoryRepository;
@@ -18,7 +24,7 @@ public class BookController {
 	@Autowired
 	private CategoryRepository categoryrepository;
 
-	@RequestMapping("/index")
+	@RequestMapping(value="/index")
 	public String indexString() {
 		return "index";
 	}
@@ -29,7 +35,16 @@ public class BookController {
 		return "booklist";
 
 	}
-
+	//get all the books with rest
+	 @RequestMapping(value="/api/getall", method = RequestMethod.GET)
+	 public @ResponseBody List<Book> bookListRest(){
+		 return (List<Book>) bookrepository.findAll();
+	 }
+	// find book by id with rest
+	 @RequestMapping(value="/api/find/{id}", method = RequestMethod.GET)
+	 public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookid){
+		 return bookrepository.findById(bookid);
+	 }
 	@RequestMapping("/add")
 	public String addBook(Model model) {
 		model.addAttribute("categories", categoryrepository.findAll());
