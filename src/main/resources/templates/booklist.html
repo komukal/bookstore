@@ -40,7 +40,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<td th:text="${book.price}+ €"></td>
 				<td th:text="${book.category.name}"></td>
 				
-				<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-success"
+				<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success"
 					th:href="@{/edit/{id}(id=${book.id})}">Edit</a> <a
 					class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
 
